@@ -1,0 +1,79 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.3-apache-browsers
+        environment:
+          STAGE_ENV: circleci
+          APP_ENV: testing
+          APP_KEY: 27ceqUDGvdm77abRFSNQbFSVFIz4dGIH
+          APP_DEBUG: true
+          TZ: /usr/share/zoneinfo/Asia/Tokyo
+      - image: circleci/mysql:8.0
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DATABASE: microposts_test
+          MYSQL_ROOT_HOST: "%"
+          MYSQL_USER: root
+          MYSQL_ROOT_PASSWORD: password
+    working_directory: /var/www/html
+    steps:
+      - run:
+          name: init
+          command: |
+            sudo apt-get update
+            php -v
+            apache2 -v
+            sudo apt-get -y install git unzip zlib1g-dev libicu-dev
+            sudo chown -R circleci:circleci /var/www
+            sudo -E docker-php-ext-install zip pdo_mysql
+      - checkout
+      - run: cp .env.ci .env # .envファイルをci用に設定
+      - run: sudo composer self-update
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.json" }}
+            - composer-v1-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.json" }}
+          paths:
+            - vendor
+      - run:
+          name: migration and test
+          command: |
+            pwd
+            ls -la
+            php artisan migrate
+            php artisan migrate:status
+            ./vendor/bin/phpunit
+
+  deploy:
+    machine:
+      enabled: true
+    environment:
+      HEROKU_APP: laravel6-microposts
+    steps:
+      - checkout
+      - run:
+          name: Setup Heroku
+          command: bash .circleci/setup-heroku.sh
+      - run:
+          command: |
+            git push heroku master
+            heroku run php artisan migrate --force
+            sleep 5
+            heroku restart
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
