@@ -8,5 +8,5 @@
 - store()、edit()、destroy()のviewにflushメッセージ表示
 - エラーSlack通知機能
 - testコード追加 
-- circeciでci環境
+- circeciでtest、herokuへデプロイするci環境
 
