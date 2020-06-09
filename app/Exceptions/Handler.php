@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * @param $message
+     * @param string $message
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function sendSlackByGuzzle($message)

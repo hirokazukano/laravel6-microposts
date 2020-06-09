@@ -115,7 +115,4 @@ class UserTest extends TestCase
         $response = $this->_user->favorites();
         $this->assertEquals(4, $response->count());
     }
-
-
-
 }
