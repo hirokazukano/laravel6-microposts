@@ -24,7 +24,7 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
 
 ### 実際にSlackに通知させる方法
 - [laravel/slack-notification-channel](https://github.com/laravel/slack-notification-channel)インストール
-- `composer require laravel/slack-notification-channel`
+  - `composer require laravel/slack-notification-channel`
 - .envに以下を追記(値は任意のもの)
   - SLACK_USERNAME=TestUser
   - SLACK_ICON=:fire:
@@ -40,9 +40,9 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
 - Herokuへ初回デプロイが完了していることが条件
 - .circleci/config.yml 56行目の`HEROKU_APP`を自分のアプリ名に変更
 - circleciでプロジェクトを作成し、以下の環境変数設定が必要
-- HEROKU_API_KEY
-  - [Manage Account](https://dashboard.heroku.com/account)のAPI Keyの値を入力  
-- HEROKU_LOGIN
-   - loginメールアドレスを入力
+  - HEROKU_API_KEY
+    - [Manage Account](https://dashboard.heroku.com/account)のAPI Keyの値を入力  
+  - HEROKU_LOGIN
+    - loginメールアドレスを入力
 - Chat NotificationsにSlackのWebhook URLを記入するとci結果を通知可能
 - 設定が正しいと`git push origin master`でcircleciが起動しtest実行、成功時のみHerokuへデプロイ
