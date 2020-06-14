@@ -14,7 +14,7 @@
     @else
         <div class="center jumbotron">
             <div class="text-center">
-                <h1>Welcome to the Microposts</h1>
+                <h1>{{ __('messages.welcome') }}</h1>
                 {!! link_to_route('signup.get', 'Sign Up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
             </div>
         </div>

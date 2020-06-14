@@ -35,6 +35,17 @@
                         {!! link_to_route('login', 'Login', [], ['class' => 'nav-link']) !!}
                     </li>
                 @endif
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('messages.language') }}</a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        @foreach (config('languages') as $lang => $language)
+                            @if ($lang !== App::getLocale())
+                                <li class="dropdown-item">{!! link_to_route('lang.switch', $language, ['lang' => $lang]) !!}</li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>

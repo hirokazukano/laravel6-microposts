@@ -39,5 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
 });
 
+Route::get('lang/{lang}', 'LanguageController@switchLang')->name('lang.switch');
 // エラー通知
 Route::get('send-slack', 'MicropostsController@sendSlack');
