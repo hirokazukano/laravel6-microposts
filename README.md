@@ -46,6 +46,7 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
     - loginメールアドレスを入力
 - Chat NotificationsにSlackのWebhook URLを記入するとci結果を通知可能
 - 設定が正しいと`git push origin master`でcircleciが起動しtest実行、成功時のみHerokuへデプロイ
+- Heroku以外にデプロイする場合は[deployphp/deployer](https://github.com/deployphp/deployer)を使うと簡単でオススメ
 
 ### 多言語切り替え機能
 - [Laravel 5 And His F*cking non-persistent App SetLocale](https://mydnic.be/post/laravel-5-and-his-fcking-non-persistent-app-setlocale)を参考に実装
