@@ -49,20 +49,24 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
 - Heroku以外にデプロイする場合は[deployphp/deployer](https://github.com/deployphp/deployer)を使うと簡単でオススメ
 
 ### ciで使用するツール
+- [Phing](https://www.phing.info/)
+  - ビルドツールで以下の各ツールの実行をbuild.xmlにまとめて記載しコマンド一発で実行可能にする
+  - `build/tools/phing-2.16.3.phar -verbose`
+
 - [phpunit](https://phpunit.readthedocs.io/ja/latest/)
   - テストとガバレッジ自動生成
   - 単独実行 `vendor/bin/phpunit --coverage-html ./build/phpunit`
   - ./build/phpunit/index.htmlで確認可能
 
-- [PHPMD](https://phpmd.org/)
-  - PHP Mess Ditector 使われていない変数やコードの潜在的なバグになりそうな箇所や実装上の問題を検出してくれる
-  - 単独実行 `build/tools/phpmd.phar app/ html codesize,design,naming,unusedcode --reportfile ./build/logs/phpmd.html`
-  - ./build/logs/phpmd.htmlで確認可能
-
 - [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
   - コーディング規約をチェックをしてくれる
   - 単独実行 `build/tools/phpcs.phar app/ --standard=PSR2 --report=xml --report-file=./build/logs/phpcs.xml`
   - ./build/logs/phpcs.xmlで確認可能
+  
+- [PHPMD](https://phpmd.org/)
+  - PHP Mess Ditector 使われていない変数やコードの潜在的なバグになりそうな箇所や実装上の問題を検出してくれる
+  - 単独実行 `build/tools/phpmd.phar app/ html codesize,design,naming,unusedcode --reportfile ./build/logs/phpmd.html`
+  - ./build/logs/phpmd.htmlで確認可能
 
 - [PHPCPD](https://github.com/sebastianbergmann/phpcpd)
   - PHP Copy/Paste Detector 重複コードを見つけてくれる

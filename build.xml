@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="laravel6-microposts" default="build">
+
+    <target name="build" depends="clean,prepare,phpcs,phpmd,phpcpd,phploc,phpdoc,phpunit"/>
+
+    <property name="basedir" value="."/>
+    <property name="vendorbindir" value="${basedir}/vendor/bin"/>
+    <property name="tool_dir" value="${basedir}/build/tools"/>
+
+    <target name="clean" unless="clean.done" description="ビルド前にディレクトリをクリア">
+        <delete dir="${basedir}/build/doc"/>
+        <delete dir="${basedir}/build/logs"/>
+        <delete dir="${basedir}/build/phpunit"/>
+        <property name="clean.done" value="true"/>
+    </target>
+
+    <target name="prepare" unless="prepare.done" depends="clean" description="ビルド前にディレクトを新規作成">
+        <mkdir dir="${basedir}/build/doc"/>
+        <mkdir dir="${basedir}/build/logs"/>
+        <mkdir dir="${basedir}/build/phpunit"/>
+        <property name="prepare.done" value="true"/>
+    </target>
+
+    <!-- PHP_CodeSniffer -->
+    <target name="phpcs" depends="prepare" description="コーディング規約PSR2で書かれているかチェック">
+        <exec executable="${tool_dir}/phpcs.phar">
+            <arg value="--report=xml"/>
+            <arg value="--standard=PSR2"/>
+            <arg value="--report-file=./build/logs/phpcs.xml"/>
+            <arg path="${basedir}/app"/>
+            <arg path="${basedir}/tests"/>
+        </exec>
+    </target>
+
+    <!-- PHPMD -->
+    <target name="phpmd" depends="prepare" description="PHP Mess Ditector 使われていない変数やコードの潜在的なバグになりそうな箇所や実装上の問題を検出">
+        <exec executable="${tool_dir}/phpmd.phar">
+            <arg line="${basedir}/app"/>
+            <arg line="html"/>
+            <arg line="codesize,design,naming,unusedcode"/>
+            <arg line="--reportfile ${basedir}/build/logs/phpmd.html"/>
+        </exec>
+    </target>
+
+    <!-- PHPCPD -->
+    <target name="phpcpd" depends="prepare" description="PHP Copy/Paste Detector 重複コードを見つけてくれる">
+        <exec executable="${tool_dir}/phpcpd-5.0.2.phar">
+            <arg line="${basedir}/app"/>
+            <arg line="--log-pmd ${basedir}/build/logs/phpcpd.xml"/>
+        </exec>
+    </target>
+
+    <!-- PHPLOC -->
+    <target name="phploc" depends="prepare" description="プロジェクトのファイルサイズ、構成などの分析">
+        <exec executable="${tool_dir}/phploc-6.0.2.phar">
+            <arg line="${basedir}/app"/>
+            <arg line="--log-xml"/>
+            <arg line="${basedir}/build/logs/phploc.xml"/>
+        </exec>
+    </target>
+
+    <!-- PHPDOC -->
+    <target name="phpdoc" depends="prepare" description="ドキュメントの自動生成">
+        <exec executable="${tool_dir}/phpDocumentor.phar">
+            <arg line="-d ${basedir}/app/"/>
+            <arg line="-t ${basedir}/build/doc"/>
+        </exec>
+    </target>
+
+    <!-- PHPUNIT -->
+    <target name="phpunit" depends="prepare" description="テスト、ガバレッジ作成">
+        <exec executable="${vendorbindir}/phpunit">
+            <arg line="--coverage-html ./build/phpunit"/>
+        </exec>
+    </target>
+
+</project>

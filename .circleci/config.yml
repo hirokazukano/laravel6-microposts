@@ -41,13 +41,14 @@ jobs:
           paths:
             - vendor
       - run:
-          name: migration and test
+          name: ci
           command: |
             pwd
             ls -la
-            php artisan migrate
-            php artisan migrate:status
-            ./vendor/bin/phpunit
+            #./vendor/bin/phpunit
+            ./build/tools/phing-2.16.3.phar -verbose
+      - store_artifacts:
+          path: ./build
 
   deploy:
     machine:
