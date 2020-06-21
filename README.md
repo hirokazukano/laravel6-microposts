@@ -6,6 +6,9 @@
 - [barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)使用
 - `composer require --dev barryvdh/laravel-ide-helper`でインストール
   
+### [EditorConfig](https://editorconfig.org/)を使ってレイアウトを統一(改行コードやタブの空白数など)
+- .editorconfigで設定
+
 ### Controller、Model、ViewにPHPDoc記入
 
 ### 以下actionにflushメッセージ表示
@@ -38,7 +41,7 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
 
 ### circeciでテスト、HerokuへデプロイするCI、CD環境
 - Herokuへ初回デプロイが完了していることが条件
-- .circleci/config.yml 56行目の`HEROKU_APP`を自分のアプリ名に変更
+- .circleci/config.yml 58行目の`HEROKU_APP`を自分のアプリ名に変更
 - circleciでプロジェクトを作成し、以下の環境変数設定が必要
   - HEROKU_API_KEY
     - [Manage Account](https://dashboard.heroku.com/account)のAPI Keyの値を入力  
@@ -49,7 +52,8 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
 - Heroku以外にデプロイする場合は[deployphp/deployer](https://github.com/deployphp/deployer)を使うと簡単でオススメ
 
 ### CIで使用するツール
-- 以下のCI実行時の成果物は./build/*に格納される  
+
+- 以下のCI実行時の成果物は./build/*に格納される
 - circleciで実行した場合はcircleciの「Artifacts」タブに格納されるので各リンクをクリックして確認可能
 - 以下のツールは全て使わなければいけないという事ではなく、必要な物だけを選んで使うようにする
 
@@ -60,32 +64,32 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
 - [phpunit](https://phpunit.readthedocs.io/ja/latest/)
   - テストとガバレッジ自動生成
   - 単独実行 `vendor/bin/phpunit --coverage-html ./build/phpunit`
-  - ./build/phpunit/index.htmlで確認可能
+  - ./build/phpunit/index.htmlで成果物を確認可能
 
 - [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
   - コーディング規約をチェックをしてくれる
   - 単独実行 `build/tools/phpcs.phar app/ --standard=PSR2 --report=xml --report-file=./build/logs/phpcs.xml`
-  - ./build/logs/phpcs.xmlで確認可能
+  - ./build/logs/phpcs.xmlで成果物を確認可能
   
 - [PHPMD](https://phpmd.org/)
   - PHP Mess Ditector 使われていない変数やコードの潜在的なバグになりそうな箇所や実装上の問題を検出してくれる
   - 単独実行 `build/tools/phpmd.phar app/ html codesize,design,naming,unusedcode --reportfile ./build/logs/phpmd.html`
-  - ./build/logs/phpmd.htmlで確認可能
+  - ./build/logs/phpmd.htmlで成果物を確認可能
 
 - [PHPCPD](https://github.com/sebastianbergmann/phpcpd)
   - PHP Copy/Paste Detector 重複コードを見つけてくれる
   - 単独実行 `build/tools/phpcpd-5.0.2.phar app/ --log-pmd=./build/logs/phpcpd.xml`
-  - ./build/logs/phpcpd.xmlで確認可能
+  - ./build/logs/phpcpd.xmlで成果物を確認可能
 
 - [PHPLOC](https://github.com/sebastianbergmann/phploc)
   - プロジェクトのファイルサイズ、構成などの分析
   - 単独実行 `build/tools/phploc-6.0.2.phar app/ --log-xml ./build/logs/phploc.xml`
-  - ./build/logs/phploc.xmlで確認可能
+  - ./build/logs/phploc.xmlで成果物を確認可能
 
 - [phpDocumentor](https://www.phpdoc.org/) 
   - ドキュメントの自動生成
   - 単独実行 `build/tools/phpDocumentor.phar -d app/ -t build/doc` 
-  - ./build/doc/index.htmlで確認可能
+  - ./build/doc/index.htmlで成果物を確認可能
 
 ### 多言語切り替え機能
 - [Laravel 5 And His F*cking non-persistent App SetLocale](https://mydnic.be/post/laravel-5-and-his-fcking-non-persistent-app-setlocale)を参考に実装
