@@ -36,7 +36,7 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
 - tests/Unit/ 
 - 実行は`vendor/bin/phpunit`
 
-### circeciでtest、Herokuへデプロイするci環境
+### circeciでテスト、HerokuへデプロイするCI、CD環境
 - Herokuへ初回デプロイが完了していることが条件
 - .circleci/config.yml 56行目の`HEROKU_APP`を自分のアプリ名に変更
 - circleciでプロジェクトを作成し、以下の環境変数設定が必要
@@ -44,11 +44,15 @@ app/Exceptions/Handler.phpのsendSlackByGuzzle()を実行
     - [Manage Account](https://dashboard.heroku.com/account)のAPI Keyの値を入力  
   - HEROKU_LOGIN
     - loginメールアドレスを入力
-- Chat NotificationsにSlackのWebhook URLを記入するとci結果を通知可能
+- Chat NotificationsにSlackのWebhook URLを記入するとCI結果を通知可能
 - 設定が正しいと`git push origin master`でcircleciが起動しtest実行、成功時のみHerokuへデプロイ
 - Heroku以外にデプロイする場合は[deployphp/deployer](https://github.com/deployphp/deployer)を使うと簡単でオススメ
 
-### ciで使用するツール
+### CIで使用するツール
+- 以下のCI実行時の成果物は./build/*に格納される  
+- circleciで実行した場合はcircleciの「Artifacts」タブに格納されるので各リンクをクリックして確認可能
+- 以下のツールは全て使わなければいけないという事ではなく、必要な物だけを選んで使うようにする
+
 - [Phing](https://www.phing.info/)
   - ビルドツールで以下の各ツールの実行をbuild.xmlにまとめて記載しコマンド一発で実行可能にする
   - `build/tools/phing-2.16.3.phar -verbose`
