@@ -78,6 +78,21 @@ class User extends Authenticatable
     }
 
     /**
+     * loadRelationshipCountsの動作説明
+     *
+     * @return array
+     */
+    public function getRelationshipCounts()
+    {
+        return [
+            'microposts_count' => $this->microposts()->count(),
+            'followings_count' => $this->followings()->count(),
+            'followers_count' => $this->followers()->count(),
+            'favorites_count' => $this->favorites()->count(),
+        ];
+    }
+
+    /**
      * 関連するモデルのカウント取得
      * $user->attributesにmicroposts_count、followings_countなどで追加される
      * $this->microposts()->count()と同じこと
