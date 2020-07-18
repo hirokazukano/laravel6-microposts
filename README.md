@@ -12,6 +12,7 @@
   - [CIで使用するツール](#CIで使用するツール)
 - [多言語切り替え機能](#多言語切り替え機能)
 - [SEO対策](#SEO対策)
+- [Laravel Mix導入](#Laravel Mix導入)
 
 
 ## コード補完機能
@@ -125,3 +126,16 @@ ___
 ### SEO対策
 - title、descriptionタグをbladeから動的に設定できるようにする
 - SignUp、Loginページのみ実装
+---
+
+### Laravel Mix導入
+- node js、npmのインストールが必要
+- `npm install`後、開発時は`npm run watch`、デプロイ時は`npm run prod`を実行
+- webpack.mix.jsにcss、jsのコンパイル、ビルド処理、browserSyncの実行を追加
+- 生成されたpublic/css/index.min.css、public/js/index.min.jsを本番、開発環境で読み込みを切り替えるようにviews/layouts/app.blade.phpを変更
+- .git/pre-commitに以下を記載する事でcommit直前に`npm run prod`が実行され、本番環境用のcss、jsファイルがcommitに含まれる
+```
+npm run prod
+git add public/css/*.min.css
+git add public/js/*.min.js
+```
