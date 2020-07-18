@@ -1,20 +1,35 @@
 # Laravel6 microposts
 
 ## 追加機能
+- [コード補完機能](#コード補完機能)
+- [EditorConfigを使用](#EditorConfigを使用)
+- [Controller、Model、ViewにPHPDoc記入](#Controller、Model、ViewにPHPDoc記入)
+- [flushメッセージ表示](#flushメッセージ表示)
+- [エラーSlack通知機能(2種類)](#エラーSlack通知機能(2種類))
+  - [実際にSlackに通知させる方法](#実際にSlackに通知させる方法)
+- [testコード追加](#testコード追加)
+- [circeciでテスト、HerokuへデプロイするCI、CD環境](#circeciでテスト、HerokuへデプロイするCI、CD環境)
+  - [CIで使用するツール](#CIで使用するツール)
+- [多言語切り替え機能](#多言語切り替え機能)
+- [SEO対策](#SEO対策)
+
 
 ## コード補完機能
 - [barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)使用
 - `composer require --dev barryvdh/laravel-ide-helper`でインストール
 ___
   
-### [EditorConfig](https://editorconfig.org/)を使ってレイアウトを統一(改行コードやタブの空白数など)
+### EditorConfigを使用
+- [EditorConfig](https://editorconfig.org/)を使ってレイアウトを統一(改行コードやタブの空白数など)
 - .editorconfigで設定
 ___
 
 ### Controller、Model、ViewにPHPDoc記入
+- 各ファイルにPHPDocを記入
 ___
 
-### 以下actionにflushメッセージ表示
+### flushメッセージ表示
+以下actionにflushメッセージ表示
 - MicropostsController
   - store(),destroy()
 - UserFollowController
@@ -40,7 +55,9 @@ ___
   - SLACK_WEB_HOOK_URL=url
 ___
     
-### testコードを以下に追加 
+### testコード追加 
+以下にtestコードを追加
+
 - tests/Feature/
 - tests/Unit/ 
 - 実行は`vendor/bin/phpunit`
