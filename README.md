@@ -12,7 +12,7 @@
   - [CIで使用するツール](#CIで使用するツール)
 - [多言語切り替え機能](#多言語切り替え機能)
 - [SEO対策](#SEO対策)
-- [Laravel Mix導入](#Laravel Mix導入)
+- [Laravel Mix導入](#Laravel-Mix導入)
 
 
 ## コード補完機能
