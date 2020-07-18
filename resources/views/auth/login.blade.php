@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Login | ' . config('app.name'))
+@section('description', 'ログインページです。')
 
 @section('content')
     <div class="text-center">

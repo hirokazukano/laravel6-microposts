@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Sign Up | ' . config('app.name'))
+@section('description', '新規登録ページです。')
 
 @section('content')
     <div class="text-center">

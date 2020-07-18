@@ -2,9 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>Microposts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{{ secure_asset('css/bootstrap.min.css') }}">
+    <title>@yield('title', config('app.name'))</title>
+    <meta name="description" content="@yield('description', config('app.name') . 'です。')">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 </head>
 <body>
 
