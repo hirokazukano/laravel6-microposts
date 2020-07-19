@@ -133,7 +133,7 @@ ___
 - `npm install`後、開発時は`npm run watch`、デプロイ時は`npm run prod`を実行
 - webpack.mix.jsにcss、jsのコンパイル、ビルド処理、browserSyncの実行を追加
 - 生成されたpublic/css/index.min.css、public/js/index.min.jsを本番、開発環境で読み込みを切り替えるようにviews/layouts/app.blade.phpを変更
-- .git/pre-commitに以下を記載する事でcommit直前に`npm run prod`が実行され、本番環境用のcss、jsファイルがcommitに含まれる
+- .git/hooks/pre-commitに以下を記載する事でcommit直前に`npm run prod`が実行され、本番環境用のcss、jsファイルがcommitに含まれる
 ```
 npm run prod
 git add public/css/*.min.css
