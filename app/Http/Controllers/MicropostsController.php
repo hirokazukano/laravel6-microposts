@@ -3,31 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Micropost;
-use App\User;
 use Illuminate\Http\Request;
 
 class MicropostsController extends Controller
 {
     /**
-     * @var User
-     */
-    private $_user;
-
-    /**
-     * @var User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $data = [];
         if (\Auth::check()) {
-            $this->_user = \Auth::user();
-            $microposts = $this->_user->feed_microposts()
+            $user = \Auth::user();
+            $microposts = $user->feed_microposts()
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
 
             $data = [
-                'user' => $this->_user,
+                'user' => $user,
                 'microposts' => $microposts,
             ];
         }
@@ -44,9 +37,8 @@ class MicropostsController extends Controller
         $request->validate([
             'content' => 'required|max:255',
         ]);
-        $this->_user = $request->user();
-
-        $this->_user->microposts()->create([
+        $user = $request->user();
+        $user->microposts()->create([
             'content' => $request->input('content'),
         ]);
 
