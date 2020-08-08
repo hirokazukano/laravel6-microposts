@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -247,5 +248,32 @@ class User extends Authenticatable
     public function is_favorite($micropostId)
     {
         return $this->favorites()->where('micropost_id', $micropostId)->exists();
+    }
+
+    /**
+     * ユーザー検索
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function searchUser(Request $request)
+    {
+        $query = $this->query();
+        if ($request->input('email')) {
+            $query->where('email', $request->input('email'));
+        }
+
+        if ($request->input('name')) {
+            $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
+        }
+
+        $direction = $request->input('direction', 'desc');
+        if ($request->input('sort')) {
+            $query->orderBy($request->input('sort'), $direction);
+        } else {
+            $query->orderBy('id', $direction);
+        }
+
+        return $query->paginate();
     }
 }

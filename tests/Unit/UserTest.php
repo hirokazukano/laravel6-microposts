@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -108,11 +109,42 @@ class UserTest extends TestCase
     /** @noinspection NonAsciiCharacters */
     /**
      * @test
-     * @group user-tmp
+     * @group user
      */
     public function favoritesを取得できること()
     {
         $response = $this->_user->favorites();
         $this->assertEquals(4, $response->count());
+    }
+
+    /** @noinspection NonAsciiCharacters */
+    /**
+     * @test
+     * @group user
+     */
+    public function micropostsのリレーションが正しくできていること()
+    {
+        $response = $this->_user->microposts();
+        // 取得件数確認
+        $this->assertEquals(3, $response->count());
+        // リレーション先のcontentカラムの値を取得できているか確認
+        $this->assertEquals('Hello world!', $response->first()->content);
+    }
+
+    /** @noinspection NonAsciiCharacters */
+    /**
+     * @test
+     * @group user
+     */
+    public function emailユーザー検索で1件ヒットすること()
+    {
+        $userModel = new User();
+        $request = new Request([
+            'email' => 'user1@gmail.com',
+            'name' => '',
+            'sort' => ''
+        ]);
+        $response = $userModel->searchUser($request);
+        $this->assertEquals(1, $response->total());
     }
 }

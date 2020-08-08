@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -81,6 +82,24 @@ class UsersController extends Controller
         return view('users.favorites', [
             'user' => $user,
             'microposts' => $favorites,
+        ]);
+    }
+
+    /**
+     * ユーザー検索
+     * テストコード説明用method、route、viewは未実装
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function userSearch(Request $request)
+    {
+        $user = \Auth::user();
+        $users = \Auth::user()->searchUser($request);
+
+        return view('users.search', [
+            'user' => $user,
+            'users' => $users,
         ]);
     }
 }
