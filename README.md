@@ -62,6 +62,14 @@ ___
 - tests/Feature/
 - tests/Unit/ 
 - 実行は`vendor/bin/phpunit`
+
+Cloud9で`could not find driver`が出た場合
+- mysqlにテスト用データベースを作成`create database microposts_test;`
+- phpunit.xmlを以下のように修正
+```
+<server name="DB_CONNECTION" value="mysql"/>
+<server name="DB_DATABASE" value="microposts_test"/>
+```
 ___
 
 ### circeciでテスト、HerokuへデプロイするCI、CD環境
